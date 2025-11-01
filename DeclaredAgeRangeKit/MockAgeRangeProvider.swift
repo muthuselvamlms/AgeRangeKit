@@ -5,7 +5,12 @@
 //  Created by Muthu L on 01/11/25.
 //
 
+#if canImport(UIKit)
 import UIKit
+#endif
+#if canImport(AppKit)
+import AppKit
+#endif
 
 // MARK: - MockAgeRangeProvider
 
@@ -37,7 +42,17 @@ public class MockAgeRangeProvider: AgeRangeProviderProtocol {
         self.currentScenario = initialScenario
     }
 
+    #if canImport(UIKit)
     public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in viewController: UIViewController) async throws -> AgeRangeService.Response {
+        return try await requestAgeRange(ageGates: threshold1, threshold2, threshold3)
+    }
+    #elseif canImport(AppKit)
+    public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in window: NSWindow) async throws -> AgeRangeService.Response {
+        return try await requestAgeRange(ageGates: threshold1, threshold2, threshold3)
+    }
+    #endif
+    
+    private func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?) async throws -> AgeRangeService.Response {
         switch currentScenario {
         case .declinedSharing:
             return .declinedSharing
@@ -115,7 +130,17 @@ private class AlternateMockAgeRangeProvider: AgeRangeProviderProtocol {
         }
     }
     
+    #if canImport(UIKit)
     public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in viewController: UIViewController) async throws -> AgeRangeService.Response {
+        try await requestAgeRange(ageGates: threshold1, threshold2, threshold3)
+    }
+    #elseif canImport(AppKit)
+    public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in window: NSWindow) async throws -> AgeRangeService.Response {
+        try await requestAgeRange(ageGates: threshold1, threshold2, threshold3)
+    }
+    #endif
+    
+    private func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?) async throws -> AgeRangeService.Response {
         return try await withCheckedThrowingContinuation { continuation in
             let prefs = self.preferences
             
