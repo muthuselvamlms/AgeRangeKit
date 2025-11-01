@@ -2,29 +2,29 @@
 import PackageDescription
 
 let package = Package(
-    name: "DeclaredAgeRangeKit",
+    name: "AgeRangeKit",
     platforms: [
         .iOS(.v14),
         .macOS(.v12)
     ],
     products: [
         .library(
-            name: "DeclaredAgeRangeKit",
-            targets: ["DeclaredAgeRangeKit"]
+            name: "AgeRangeKit",
+            targets: ["AgeRangeKit"]
         ),
     ],
     targets: [
         .target(
-            name: "DeclaredAgeRangeKit",
-            path: "DeclaredAgeRangeKit",
+            name: "AgeRangeKit",
+            path: "AgeRangeKit",
             exclude: [],
             resources: [],
             publicHeadersPath: nil
         ),
         .testTarget(
-            name: "DeclaredAgeRangeKitTests",
-            dependencies: ["DeclaredAgeRangeKit"],
-            path: "DeclaredAgeRangeKitTests"
+            name: "AgeRangeKitTests",
+            dependencies: ["AgeRangeKit"],
+            path: "AgeRangeKitTests"
         )
     ]
 )

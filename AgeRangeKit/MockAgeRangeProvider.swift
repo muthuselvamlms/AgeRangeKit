@@ -1,6 +1,6 @@
 //
 //  MockAgeRangeProvider.swift
-//  DeclaredAgeRangeKit
+//  AgeRangeKit
 //
 //  Created by Muthu L on 01/11/25.
 //
@@ -109,7 +109,7 @@ private class AlternateMockAgeRangeProvider: AgeRangeProviderProtocol {
         }
     }
     
-    private let userDefaultsKey = "com.declaredagerangekit.mock.preferences"
+    private let userDefaultsKey = "com.agerangekit.mock.preferences"
     private var preferences: MockUserDefaults {
         get {
             guard let data = UserDefaults.standard.data(forKey: userDefaultsKey),

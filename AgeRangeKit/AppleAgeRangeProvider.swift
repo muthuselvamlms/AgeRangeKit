@@ -1,6 +1,6 @@
 //
 //  AppleAgeRangeProvider.swift
-//  DeclaredAgeRangeKit
+//  AgeRangeKit
 //
 //  Created by Muthu L on 01/11/25.
 //

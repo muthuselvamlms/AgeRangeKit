@@ -1,12 +1,12 @@
 //
-//  DeclaredAgeRangeKitTests.swift
-//  DeclaredAgeRangeKitTests
+//  AgeRangeKitTests.swift
+//  AgeRangeKitTests
 //
-//  Created by Muthu L on 26/10/25.
+//  Created by Muthu L on 01/11/25.
 //
 
 import XCTest
-@testable import DeclaredAgeRangeKit
+@testable import AgeRangeKit
 import UIKit
 
 final class AgeRangeServiceTests: XCTestCase {
