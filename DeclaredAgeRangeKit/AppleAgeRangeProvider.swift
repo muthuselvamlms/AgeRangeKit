@@ -1,0 +1,55 @@
+//
+//  AppleAgeRangeProvider.swift
+//  DeclaredAgeRangeKit
+//
+//  Created by Muthu L on 01/11/25.
+//
+
+import DeclaredAgeRange
+import UIKit
+
+@available(iOS 26.0, macOS 26.0, *)
+@available(visionOS, unavailable)
+public struct AppleAgeRangeProvider: AgeRangeProviderProtocol {
+    private var ageRangeService = DeclaredAgeRange.AgeRangeService.shared
+    
+    public func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in window: UIViewController) async throws -> AgeRangeService.Response {
+        do {
+            let response = try await ageRangeService.requestAgeRange(ageGates: threshold1, threshold2, threshold3, in: window)
+            switch response {
+            case .declinedSharing:
+                return .declinedSharing
+            case .sharing(let range):
+                return .sharing(range: AgeRangeService.AgeRange(
+                    lowerBound: range.lowerBound,
+                    upperBound: range.upperBound,
+                    ageRangeDeclaration: range.ageRangeDeclaration == .selfDeclared ? AgeRangeService.AgeRangeDeclaration.selfDeclared : AgeRangeService.AgeRangeDeclaration.guardianDeclared,
+                    activeParentalControls: AgeRangeService.ParentalControls(rawValue: range.activeParentalControls.rawValue)
+                ))
+            @unknown default:
+                throw AgeRangeService.Error.notAvailable
+            }
+        } catch {
+            if let error = error as? DeclaredAgeRange.AgeRangeService.Error {
+                switch error {
+                case .invalidRequest:
+                    throw AgeRangeService.Error.invalidRequest
+                case .notAvailable:
+                    throw AgeRangeService.Error.notAvailable
+                @unknown default:
+                    throw AgeRangeService.Error.unknown
+                }
+            } else {
+                throw AgeRangeService.Error.unknown
+            }
+        }
+    }
+    
+    
+    public init() {}
+    
+    public func resetMockData() {
+        // Apple's API does not provide a resetMockData method
+        // No-op
+    }
+}
