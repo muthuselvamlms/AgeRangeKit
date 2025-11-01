@@ -21,16 +21,6 @@ That makes local testing and CI workflows painful.
 
 ---
 
-### 🏗️ **Architecture**
-
-| Layer | Description |
-|-------|--------------|
-| `AgeRangeService` | Public API identical to Apple’s DeclaredAgeRange service. |
-| `AppleAgeRangeProvider` | Delegates to Apple’s native DeclaredAgeRange on supported OS. |
-| `MockAgeRangeProvider` | Developer testing mock — simulates every possible scenario instantly. |
-
----
-
 ### 🧩 **Installation**
 
 #### 🟦 Swift Package Manager
@@ -105,7 +95,17 @@ Button("Check Age") {
 
 ---
 
-### 📚 **Scenarios via SimpleMockAgeRangeProvider**
+### 🏗️ **Architecture**
+
+| Layer | Description |
+|-------|--------------|
+| `AgeRangeService` | Public API identical to Apple’s DeclaredAgeRange service. |
+| `AppleAgeRangeProvider` | Delegates to Apple’s native DeclaredAgeRange on supported OS. |
+| `MockAgeRangeProvider` | Developer testing mock — simulates every possible scenario instantly. |
+
+---
+
+### 📚 **Scenarios via MockAgeRangeProvider**
 
 | Scenario | Result |
 |-----------|---------|

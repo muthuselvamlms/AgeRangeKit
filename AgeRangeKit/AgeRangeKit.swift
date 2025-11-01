@@ -242,13 +242,13 @@ import SwiftUI
 
 @available(iOS 26.0, macOS 26.0, *)
 @available(visionOS, unavailable)
-private struct RequestAgeRangeKey: EnvironmentKey {
+public struct RequestAgeRangeKey: EnvironmentKey {
     #if canImport(UIKit)
-    static let defaultValue: (Int, Int?, Int?, UIViewController) async throws -> AgeRangeService.Response = { threshold1, threshold2, threshold3, window in
+    public static let defaultValue: (Int, Int?, Int?, UIViewController) async throws -> AgeRangeService.Response = { threshold1, threshold2, threshold3, window in
         try await AgeRangeService.shared.requestAgeRange(ageGates: threshold1, threshold2, threshold3, in: window)
     }
     #elseif canImport(AppKit)
-    static let defaultValue: (Int, Int?, Int?, NSWindow) async throws -> AgeRangeService.Response = { threshold1, threshold2, threshold3, window in
+    public static let defaultValue: (Int, Int?, Int?, NSWindow) async throws -> AgeRangeService.Response = { threshold1, threshold2, threshold3, window in
         try await AgeRangeService.shared.requestAgeRange(ageGates: threshold1, threshold2, threshold3, in: window)
     }
     #endif
@@ -258,12 +258,12 @@ private struct RequestAgeRangeKey: EnvironmentKey {
 @available(visionOS, unavailable)
 extension EnvironmentValues {
     #if canImport(UIKit)
-    var requestAgeRange: (Int, Int?, Int?, UIViewController) async throws -> AgeRangeService.Response {
+    public var requestAgeRange: (Int, Int?, Int?, UIViewController) async throws -> AgeRangeService.Response {
         get { self[RequestAgeRangeKey.self] }
         set { self[RequestAgeRangeKey.self] = newValue }
     }
     #elseif canImport(AppKit)
-    var requestAgeRange: (Int, Int?, Int?, NSWindow) async throws -> AgeRangeService.Response {
+    public var requestAgeRange: (Int, Int?, Int?, NSWindow) async throws -> AgeRangeService.Response {
         get { self[RequestAgeRangeKey.self] }
         set { self[RequestAgeRangeKey.self] = newValue }
     }
