@@ -5,7 +5,9 @@
 //  Created by Muthu L on 01/11/25.
 //
 
+#if canImport(DeclaredAgeRange)
 import DeclaredAgeRange
+#endif
 #if canImport(UIKit)
 import UIKit
 #elseif canImport(AppKit)

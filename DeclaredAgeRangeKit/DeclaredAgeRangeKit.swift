@@ -5,6 +5,13 @@
 //  Created by Muthu L on 26/10/25.
 //
 
+#if canImport(UIKit)
+import UIKit
+#endif
+#if canImport(AppKit)
+import AppKit
+#endif
+
 public protocol AgeRangeProviderProtocol {
     #if canImport(UIKit)
     func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in viewController: UIViewController) async throws -> AgeRangeService.Response
