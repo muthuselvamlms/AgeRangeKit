@@ -7,7 +7,6 @@
 
 #if canImport(DeclaredAgeRange)
 import DeclaredAgeRange
-#endif
 #if canImport(UIKit)
 import UIKit
 #elseif canImport(AppKit)
@@ -79,3 +78,4 @@ public struct AppleAgeRangeProvider: AgeRangeProviderProtocol {
         // No-op
     }
 }
+#endif

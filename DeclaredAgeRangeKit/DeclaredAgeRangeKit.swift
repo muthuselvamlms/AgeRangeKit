@@ -174,7 +174,9 @@ public struct AgeRangeService {
             return
         }
         if #available(iOS 26.0, macOS 26.0, *) {
+            #if canImport(DeclaredAgeRange)
             provider = AppleAgeRangeProvider()
+            #endif
         } else {
             provider = MockAgeRangeProvider()
         }
