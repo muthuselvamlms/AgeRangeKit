@@ -60,3 +60,6 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+DeclaredAgeRangeKit.xcodeproj/project.xcworkspace/xcuserdata/muthul.xcuserdatad/UserInterfaceState.xcuserstate
+.DS_Store
