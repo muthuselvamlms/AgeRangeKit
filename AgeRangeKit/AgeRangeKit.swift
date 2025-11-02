@@ -240,14 +240,7 @@ extension AgeRangeService.AgeRangeDeclaration: Hashable {}
 #if canImport(SwiftUI)
 import SwiftUI
 
-@available(iOS 26.0, macOS 26.0, *)
-@available(visionOS, unavailable)
-public struct RequestAgeRangeAction {
-    
-    private var ageRangeService = AgeRangeService.shared
-    public init(ageRangeService: AgeRangeService = .shared) {
-        self.ageRangeService = ageRangeService
-    }
+extension AgeRangeService {
     
     /// Requests the declared age range from the system or mock service.
     ///
@@ -261,7 +254,7 @@ public struct RequestAgeRangeAction {
             .first?.keyWindow?.rootViewController else {
             throw AgeRangeService.Error.invalidRequest
         }
-        return try await self.ageRangeService.requestAgeRange(
+        return try await self.provider.requestAgeRange(
             ageGates: threshold1,
             threshold2,
             threshold3,
@@ -271,7 +264,7 @@ public struct RequestAgeRangeAction {
         guard let window = await NSApp.keyWindow else {
             throw AgeRangeService.Error.invalidRequest
         }
-        return  try await self.ageRangeService.requestAgeRange(
+        return  try await self.provider.requestAgeRange(
             ageGates: threshold1,
             threshold2,
             threshold3,
@@ -281,16 +274,12 @@ public struct RequestAgeRangeAction {
     }
 }
 
-@available(iOS 26.0, macOS 26.0, *)
-@available(visionOS, unavailable)
 private struct RequestAgeRangeKey: EnvironmentKey {
-    public static let defaultValue = RequestAgeRangeAction()
+    public static let defaultValue = AgeRangeService()
 }
 
-@available(iOS 26.0, macOS 26.0, *)
-@available(visionOS, unavailable)
 extension EnvironmentValues {
-    public var requestAgeRange: RequestAgeRangeAction {
+    public var requestAgeRange: AgeRangeService {
         get { self[RequestAgeRangeKey.self] }
         set { self[RequestAgeRangeKey.self] = newValue }
     }
