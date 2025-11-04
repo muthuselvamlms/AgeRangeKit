@@ -8,10 +8,10 @@ Pod::Spec.new do |s|
     the native API when available.
   DESC
 
-  s.homepage         = 'https://github.com/<your-username>/AgeRangeKit'
+  s.homepage         = 'https://github.com/muthuselvamlms/AgeRangeKit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Muthu' => 'you@example.com' }
-  s.source           = { :git => 'https://github.com/<your-username>/AgeRangeKit.git', :tag => s.version.to_s }
+  s.author           = { 'Muthu' => 'muthuselvamlms@gmail.com' }
+  s.source           = { :git => 'https://github.com/muthuselvamlms/AgeRangeKit.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '14.0'
   s.osx.deployment_target = '12.0'
