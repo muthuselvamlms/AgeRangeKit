@@ -17,10 +17,10 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '12.0'
   s.swift_version    = '5.9'
 
-  s.source_files     = 'Sources/AgeRangeKit/**/*.{swift}'
+  s.source_files     = 'AgeRangeKit/**/*.{swift}'
   s.frameworks       = 'Foundation', 'SwiftUI'
 
   s.test_spec 'Tests' do |test_spec|
-    test_spec.source_files = 'Tests/AgeRangeKitTests/**/*.{swift}'
+    test_spec.source_files = 'AgeRangeKitTests/**/*.{swift}'
   end
 end
