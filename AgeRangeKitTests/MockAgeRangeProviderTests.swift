@@ -7,7 +7,11 @@
 
 import XCTest
 @testable import AgeRangeKit
+#if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 final class MockAgeRangeProviderTests: XCTestCase {
 
@@ -32,7 +36,11 @@ final class MockAgeRangeProviderTests: XCTestCase {
     func testRequestAgeRange_DeclinedSharing_ReturnsDeclined() async throws {
         provider.currentScenario = .declinedSharing
 
+        #if canImport(UIKit)
         let response = try await provider.requestAgeRange(ageGates: 13, nil, nil, in: UIViewController())
+        #elseif canImport(AppKit)
+        let response = try await provider.requestAgeRange(ageGates: 13, nil, nil, in: NSWindow())
+        #endif
 
         if case .declinedSharing = response {
             XCTAssertTrue(true)
@@ -45,7 +53,11 @@ final class MockAgeRangeProviderTests: XCTestCase {
     func testRequestAgeRange_ChildScenario_ReturnsCorrectRange() async throws {
         provider.currentScenario = .sharingChild
 
+        #if canImport(UIKit)
         let response = try await provider.requestAgeRange(ageGates: 13, nil, nil, in: UIViewController())
+        #elseif canImport(AppKit)
+        let response = try await provider.requestAgeRange(ageGates: 13, nil, nil, in: NSWindow())
+        #endif
 
         switch response {
         case .sharing(let range):
@@ -60,7 +72,11 @@ final class MockAgeRangeProviderTests: XCTestCase {
     func testRequestAgeRange_TeenScenario_ReturnsCorrectRange() async throws {
         provider.currentScenario = .sharingTeen
 
+        #if canImport(UIKit)
         let response = try await provider.requestAgeRange(ageGates: 13, nil, nil, in: UIViewController())
+        #elseif canImport(AppKit)
+        let response = try await provider.requestAgeRange(ageGates: 13, nil, nil, in: NSWindow())
+        #endif
 
         switch response {
         case .sharing(let range):
@@ -75,7 +91,11 @@ final class MockAgeRangeProviderTests: XCTestCase {
     func testRequestAgeRange_AdultScenario_ReturnsCorrectRange() async throws {
         provider.currentScenario = .sharingAdult
 
+        #if canImport(UIKit)
         let response = try await provider.requestAgeRange(ageGates: 18, nil, nil, in: UIViewController())
+        #elseif canImport(AppKit)
+        let response = try await provider.requestAgeRange(ageGates: 18, nil, nil, in: NSWindow())
+        #endif
 
         switch response {
         case .sharing(let range):
@@ -104,7 +124,11 @@ final class MockAgeRangeProviderTests: XCTestCase {
 
     private func assertThrowsSpecificError(expectedError: AgeRangeService.Error, file: StaticString = #filePath, line: UInt = #line) async {
         do {
+            #if canImport(UIKit)
             _ = try await provider.requestAgeRange(ageGates: 13, nil, nil, in: UIViewController())
+            #elseif canImport(AppKit)
+            _ = try await provider.requestAgeRange(ageGates: 13, nil, nil, in: NSWindow())
+            #endif
             XCTFail("Expected \(expectedError) to be thrown", file: file, line: line)
         } catch let error as AgeRangeService.Error {
             XCTAssertEqual(error, expectedError, "Expected \(expectedError), got \(error)", file: file, line: line)

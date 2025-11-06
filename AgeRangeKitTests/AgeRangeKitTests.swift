@@ -7,9 +7,14 @@
 
 import XCTest
 @testable import AgeRangeKit
+#if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 final class AgeRangeServiceTests: XCTestCase {
+    
     
     // MARK: - Mocks
     final class DummyProvider: AgeRangeProviderProtocol {
@@ -18,6 +23,7 @@ final class AgeRangeServiceTests: XCTestCase {
         var lastCalled = false
         var simulatedResponse: AgeRangeService.Response = .sharing(range: .init(lowerBound: 18))
         
+        #if canImport(UIKit)
         func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in viewController: UIViewController) async throws -> AgeRangeService.Response {
             lastCalled = true
             lastThresholds = (threshold1, threshold2, threshold3)
@@ -26,6 +32,16 @@ final class AgeRangeServiceTests: XCTestCase {
             }
             return simulatedResponse
         }
+        #elseif canImport(AppKit)
+        func requestAgeRange(ageGates threshold1: Int, _ threshold2: Int?, _ threshold3: Int?, in window: NSWindow) async throws -> AgeRangeService.Response {
+            lastCalled = true
+            lastThresholds = (threshold1, threshold2, threshold3)
+            if shouldThrow {
+                throw AgeRangeService.Error.notAvailable
+            }
+            return simulatedResponse
+        }
+        #endif
         
         func resetMockData() {
             lastCalled = false
@@ -55,7 +71,11 @@ final class AgeRangeServiceTests: XCTestCase {
         provider.simulatedResponse = .sharing(range: .init(lowerBound: 13, upperBound: 17))
         
         // When
+        #if canImport(UIKit)
         let response = try await service.requestAgeRange(ageGates: 13, nil, nil, in: UIViewController())
+        #elseif canImport(AppKit)
+        let response = try await service.requestAgeRange(ageGates: 13, nil, nil, in: NSWindow())
+        #endif
         
         // Then
         if case .sharing(let range) = response {
@@ -73,7 +93,11 @@ final class AgeRangeServiceTests: XCTestCase {
         
         // When
         do {
+            #if canImport(UIKit)
             _ = try await service.requestAgeRange(ageGates: 13, nil, nil, in: UIViewController())
+            #elseif canImport(AppKit)
+            _ = try await service.requestAgeRange(ageGates: 13, nil, nil, in: NSWindow())
+            #endif
             XCTFail("Expected error not thrown")
         } catch let error as AgeRangeService.Error {
             // Then
