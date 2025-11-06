@@ -75,12 +75,8 @@ jobs:
               fi
             fi
 
-          if [ "${{ matrix.platform }}" = "macos" ]; then
-            if ! xcodebuild -list -scheme "$scheme" | grep -q "Tests"; then
-              echo "Skipping macOS tests — no test target configured for scheme $scheme"
-              exit 0
-            fi
-          fi
+          test_target=$(xcodebuild -list -scheme "$scheme" | grep "Tests" | head -n 1 | awk '{$1=$1;print}')
+          echo "Detected test target: $test_target"
 
           xcodebuild test \
             -scheme "$scheme" \
