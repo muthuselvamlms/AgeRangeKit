@@ -44,7 +44,7 @@ jobs:
           # Fallback destinations if auto-detection fails
           if [ -z "$destination" ]; then
             if [ "${{ matrix.platform }}" = "ios" ]; then
-              destination="platform=iOS Simulator"
+              destination="platform=iOS"
             else
               destination="platform=macOS"
             fi
@@ -68,7 +68,7 @@ jobs:
           # Fallback destinations if auto-detection fails
           if [ -z "$destination" ]; then
             if [ "${{ matrix.platform }}" = "ios" ]; then
-              destination="platform=iOS Simulator"
+              destination="platform=iOS"
             else
               destination="platform=macOS"
             fi
