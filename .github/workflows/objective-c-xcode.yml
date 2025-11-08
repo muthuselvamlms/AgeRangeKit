@@ -44,7 +44,7 @@ jobs:
           # Fallback destinations if auto-detection fails
           if [ -z "$destination" ]; then
             if [ "${{ matrix.platform }}" = "ios" ]; then
-              destination="platform=iOS, id=dvtdevice-DVTiPhonePlaceholder-iphoneos=placeholder, name=Any iOS Device"
+              destination="id=FC0D9F88-ADA3-4239-9E50-12725ABC8EC6"
             else
               destination="platform=macOS"
             fi
@@ -68,7 +68,7 @@ jobs:
           # Fallback destinations if auto-detection fails
           if [ -z "$destination" ]; then
             if [ "${{ matrix.platform }}" = "ios" ]; then
-              destination="platform=iOS"
+              destination="id=FC0D9F88-ADA3-4239-9E50-12725ABC8EC6"
             else
               destination="platform=macOS"
             fi
